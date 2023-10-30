@@ -1,0 +1,40 @@
+body {
+  font-family: "Open Sans", sans-serif;
+}
+
+h1 {
+  font-weight: bold;
+}
+
+.gradient-background {
+  background: linear-gradient(300deg, #ed7d31, #ff4f03, #ecab80);
+  background-size: 180% 180%;
+  animation: gradient-animation 18s ease infinite;
+}
+
+.gradient-background-switch {
+  background: linear-gradient(300deg, #2fbeea, #307fff, #a9e5ff);
+  background-size: 180% 180%;
+  animation: gradient-animation 18s ease infinite;
+}
+
+.list-text {
+  font-size: x-large;
+}
+
+.nav-pills > li > a.active {
+  background-color: #ff5b1f !important;
+}
+
+.nav-pills > .sub-item > a.nav-link {
+  color: #ff5b1f !important;
+}
+
+#switch {
+  height: 3rem;
+  width: 6rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5%;
+  border-width: 0;
+}

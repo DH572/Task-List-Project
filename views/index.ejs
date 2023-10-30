@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task List</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles/style.css" />
+  </head>
+  <body>
+
+    <header class="d-flex flex-wrap justify-content-center py-3 border-bottom">
+      <a
+        href="/"
+        class="d-flex align-items-center mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
+      >
+        <svg class="bi me-2" width="40" height="32">
+          <use xlink:href="#bootstrap"></use>
+        </svg>
+        <span class="fs-4">MyTaskList</span>
+      </a>
+
+      <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a href="#" class="nav-link active" aria-current="page">Home</a>
+        </li>
+        <li class="nav-item sub-item">
+          <a href="#top" class="nav-link">Top</a>
+        </li>
+        <li class="nav-item sub-item">
+          <a href="#bottom" class="nav-link">Bottom</a>
+        </li>
+      </ul>
+    </header>
+
+    <div class="container gradient-background mt-5 pl-5">
+      <div class="row flex-lg-row align-items-center g-5 pt-5">
+        <div class="col-lg-6">
+          <h1
+            class="display-5 fw-bold text-body-emphasis lh-1 mb-3 profile-text"
+          >
+            Create a task list.
+          </h1>
+        </div>
+      </div>
+      
+      <form class="form-group py-4" action="/submit" method="POST">
+        <label for="task">Enter task:</label><br />
+        <input type="text" name="task" placeholder="Task" />
+        <input type="submit" value="Post" />
+      </form>
+
+      <% if (locals.items && items.length != 0) {%>
+        <form class="form-group pb-4" action="/edit" method="POST">
+          <label for="task">Enter task number:</label><br />
+          <input type="number" name="index" placeholder="Number" min="1" max="<%=items.length%>"/>
+          <input type="submit" value="Get" />
+        </form>
+
+        <% if (locals.postBody && locals.taskNumber) {%>
+          <form class="form-group pb-4" action="/change" method="POST">
+            <label for="task">Changing task #<%=taskNumber%>:</label><br />
+            <input type="text" name="change" value="<%=postBody%>"/>
+            <input type="submit" value="Change" />
+          </form>
+        <% } %>
+      <% } %>
+    </div>
+
+    <div class="container d-flex justify-content-center my-5">
+      <form class="form-group" action="/other" method="GET">
+        <input class="gradient-background" type="submit" id="switch" value="Switch" />
+      </form>
+    </div>
+
+    
+    <div class="container d-flex flex-column" id="top">
+      <% if (locals.items && items.length != 0) {%>
+        <h1
+          class="display-5 fw-bold text-body-emphasis lh-1 mb-3 profile-text list-text"
+        >
+          Your list so far.
+        </h1>
+
+        <form action="/delete" method="POST">
+          <% for (let i=0; i<items.length; i++) { %>
+            <% var postName = "post" + (i + 1)%>
+            <input type="checkbox" name="<%= postName %>"">
+            <label for="<%= postName %>"> <%= i + 1 %>. <%= items[i] %></label><br>
+          <% } %>
+          <input class="mt-3" type="submit" value="Remove" />
+        </form>
+      <% } %>
+    </div>
+
+    <div class="container">
+      <br />
+      <br />
+      <br />
+    </div>
+
+    <footer
+      class="d-flex flex-wrap justify-content-between align-items-center border-top"
+      id = "bottom"
+    >
+      <div class="col-md-4 d-flex align-items-center py-3">
+        <a
+          href="/"
+          class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1"
+        >
+          <svg class="bi" width="30" height="24">
+            <use xlink:href="#bootstrap"></use>
+          </svg>
+        </a>
+        <span class="mb-3 mb-md-0 text-body-secondary"
+          >© 2023 Darren Huynh</span
+        >
+      </div>
+    </footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
